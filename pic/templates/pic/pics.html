@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<p>Hello you are on the {{page}} page</p>
+
+{% if number > 10 %}
+<p>Number is greater than 10</p>
+
+{% elif number == 10%}
+<p>Number is exactly 10</p>
+
+{% else %}
+<p>Number is less than 10</p>
+
+{% endif %}
+
+<hr>
+
+<h1>Pics</h1>
+
+<ul>
+    {% for picture in pic %}
+    <li>Title:<a href="{% url 'picture' picture.id %}">{{picture.title}}</a>--{{picture.description}} </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
