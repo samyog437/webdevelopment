@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<main class="settingsPage profile my-md">
+  <div class="container">
+    <div class="layout">
+      <div class="column col-lg-3">
+        <div class="card text-center">
+          <div class="card__body dev">
+            <h2 class="dev__name">{{profile.name}}</h2>
+            <p class="dev__title">{{profile.short_bio}}</p>
+            <a class="btn" href="{% url 'edit-account' %}"> Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="column col-lg-8">
+        <div class="settings justify-content-center">
+          <h3>Posted Pictures</h3>
+        </div>
+
+        <table class="table">
+          {% for picture in pic %}
+          <tr>
+            <td>
+              <a href="{% url 'picture' picture.id %}"><img src="{{picture.image.url}}" alt="Picture" /></a>
+            </td>
+            <td class="settings__tableInfo">
+              <a href="{% url 'picture' picture.id %}">{{picture.title}}</a>
+              <p>{{picture.description|slice:"100"}}</p>
+            </td>
+            <td>
+              <a href="{% url 'update-picture' picture.id %}">Edit</a>
+              <a href="{% url 'delete-picture' picture.id %}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

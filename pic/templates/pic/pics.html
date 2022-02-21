@@ -2,27 +2,76 @@
 
 {% block content %}
 
-<p>Hello you are on the {{page}} page</p>
 
-{% if number > 10 %}
-<p>Number is greater than 10</p>
+<main class="projects">
+    <section class="hero-section text-center">
+        <div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>Search for <span>Pictures</span></h2>
+            </div>
 
-{% elif number == 10%}
-<p>Number is exactly 10</p>
+            <div class="hero-section__search">
+                <form class="form" action="{% url 'pic' %}" method="get">
+                    <div class="form__field">
+                        <label for="formInput#search">Search By Pictures </label>
+                        <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                            placeholder="Search by picture title" />
+                    </div>
 
-{% else %}
-<p>Number is less than 10</p>
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="projectsList">
+        <div class="container">
+            <div class="grid grid--three">
+                {% for picture in pic %}
 
-{% endif %}
+                <div class="column">
+                    <div class="card project">
+                        <a href="{% url 'picture' picture.id %}" class="project">
+                            <img class="project__thumbnail" src="{{ picture.image.url }}" alt="project thumbnail" />
+                            <div class="card__body">
+                                <h3 class="project__title">{{picture.title}}</h3>
+                                <p><a class="project__author" href="{% url 'picture' picture.id %}">Posted by
+                                        {{picture.owner.name}}</a></p>
+                                <p class="project--rating">
+                                    <span style="font-weight: bold;">{{picture.vote_ratio}}%</span> Positive
+                                    Votes ({{picture.vote_total}})
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
 
-<hr>
 
-<h1>Pics</h1>
+            </div>
+        </div>
+    </section>
 
-<ul>
-    {% for picture in pic %}
-    <li>Title:<a href="{% url 'picture' picture.id %}">{{picture.title}}</a>--{{picture.description}} </li>
-    {% endfor %}
-</ul>
+    <div class="pagination">
+        <ul class="container">
+            {% if pic.has_previous %}
+            <li><a href="?page={{pic.previous_page_number}}" class="btn page-link">Prev</a></li>
+            {% endif %}
+
+            {% for page in paginator.page_range%}
+            {% if page == pic.number %}
+            <li><a href="?page={{page}}" class="btn page-link btn--sub">{{page}}</a></li>
+            {% else %}
+            <li><a href="?page={{page}}" class="btn page-link">{{page}}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if pic.has_next %}
+            <li><a href="?page={{pic.next_page_number}}" class="btn page-link">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+</main>
 
 {% endblock content %}

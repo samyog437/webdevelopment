@@ -1,2 +1,30 @@
-<h1>Logo</h1>
-<hr />
+{% load static %}
+
+<header class="header">
+    <div class="container container--narrow">
+        <a href="{% url 'pic' %}" class="header__logo">
+            <!-- <img src="{% static 'images/logo.svg' %}" alt="postNvote Logo" /> -->
+            <h4 style="color: rgb(233, 233, 233);">postNvote</h4>
+        </a>
+        <nav class="header__nav">
+            <input type="checkbox" id="responsive-menu" />
+            <label for="responsive-menu" class="toggle-menu">
+                <span>Menu</span>
+                <div class="toggle-menu__lines"></div>
+            </label>
+            <ul class="header__menu">
+                {% if request.user.is_authenticated %}
+                <li class="header__menuItem"><a href="{% url 'create-picture' %}">Post Picture</a></li>
+                <li class="header__menuItem"><a href="{% url 'account' %}">Manage Account</a></li>
+                <li class="header__menuItem"><a href="{% url 'logout' %}" class="btn btn--sub">Logout</a></li>
+                {% if request.user.is_staff %}
+                <li class="header__menuItem"><a href="{% url 'adminManage' %}" class="btn btn--sub">Manage Users</a>
+                </li>
+                {% endif %}
+                {% else %}
+                <li class="header__menuItem"><a href="{% url 'login' %}" class="btn btn--sub">Login/Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>

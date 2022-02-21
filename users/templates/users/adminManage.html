@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="column col-lg-12">
+        <div class="settings justify-content-center">
+            <h3>Posted Pictures</h3>
+        </div>
+
+        <table class="table">
+            {% for user in profile %}
+            <tr>
+                <td class="settings__tableInfo">
+                    {{user.username}}</a>
+                </td>
+                <td>
+                    <a href="{% url 'delete-profile' user.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</div>
+
+{% endblock %}

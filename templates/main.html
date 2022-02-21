@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-
+{% load static %}
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" />
+
+    <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" />
+
+    <link rel="stylesheet" href="{% static 'styles/uikit/styles/uikit.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'styles/app.css' %}" />
+
+
     <title>postNvote</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet" href=""> -->
 </head>
 
 <body>
     {% include 'navbar.html' %}
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
     {% block content %}
 
     {% endblock content %}
 
-    <p>FOOTER</p>
 </body>
 
 </html>
