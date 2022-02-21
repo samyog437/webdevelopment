@@ -50,7 +50,7 @@ def registerUser(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'You registered and account')
+            messages.success(request, 'You registered an account')
             return redirect('login')
         else:
             messages.error(request, 'An error has occured')
